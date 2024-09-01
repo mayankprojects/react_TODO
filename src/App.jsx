@@ -1,22 +1,47 @@
-import { useReducer, useState } from "react";
+import { act, useReducer, useState } from "react";
 import Todoitems from "./components/Todoitems";
 import Todos from "./components/Todos";
 import Todostart from "./components/Todostart";
 import Error from "./components/Error";
 import { TodoContext } from "./store/todo-items-store";
 
+const Reducer = (currState, action) => {
+  let newState = currState;
+  if (action.type === "ADD") {
+    newState = [
+      ...currState,
+      {
+        name: action.payload.task,
+        dueDate: action.payload.date,
+      },
+    ];
+  } else if (action.type === "DELETE") {
+    newState = currState.filter((ele) => ele.name !== action.payload.task);
+  }
+  return newState;
+};
 function App() {
-  let [items, setItems] = useState([]);
-
+  let [items, Dispatch] = useReducer(Reducer, []);
 
   const handleAdd = (task, date) => {
-    // let temp = [...items, {name: task, dueDate: date}];
-    setItems((prev) => [...prev, { name: task, dueDate: date }]);
+    const addAction = {
+      type: "ADD",
+      payload: {
+        task,
+        date,
+      },
+    };
+    Dispatch(addAction);
   };
 
-  const handleDelete = (todoItem) => {
-    let tempObj = items.filter((ele) => ele.name !== todoItem);
-    setItems(tempObj);
+  const handleDelete = (task) => {
+    const delAction = {
+      type: "DELETE",
+      payload: {
+        task,
+      },
+    };
+    Dispatch(delAction);
   };
 
   return (
