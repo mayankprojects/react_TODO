@@ -1,8 +1,14 @@
+import { TodoContext } from "../store/todo-items-store";
+import { useContext } from "react";
+
 import Todos from "./Todos";
-export default function Todoitems({ taskObj, handleDelete }) {
+export default function Todoitems() {
+
+  const {items, handleDelete} = useContext(TodoContext);
   return (
     <>
-      {taskObj.map((item, index) => (
+
+      {items.map((item, index) => (
         <Todos key={index} task={item.name} date={item.dueDate} handleDelete = {handleDelete} ></Todos>
       ))}
     </>

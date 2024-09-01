@@ -1,12 +1,12 @@
 // import { useState } from "react";
+import { TodoContext } from "../store/todo-items-store";
+import { useContext } from "react";
 import { useRef } from "react";
 import { MdOutlineAddComment} from "react-icons/md";
 
 
-export default function Todostart({handleAdd}) {
-  // const [task, setTask] = useState("");
-  // const [date, setDate] = useState("");
-  
+export default function Todostart() {
+  const {handleAdd} = useContext(TodoContext);
   const currTask = useRef('');
   const currDate = useRef('');
 
@@ -23,15 +23,11 @@ export default function Todostart({handleAdd}) {
           type="text"
           placeholder="Enter Todo here"
           className="p-3 text-xl focus:outline-none border-2 border-black rounded-lg"
-          // value={task}
-          // onChange={(e) => {setTask(e.target.value)}}
           ref={currTask}
         />
         <input
           type="date"
           className="p-3 text-xl focus:outline-none border-2 border-black rounded-lg"
-          // value={date}
-          // onChange={(e) => {setDate(e.target.value)}}
           ref={currDate}
         />
         <button className="text-slate-100 bg-green-600 w-24 border rounded-lg" onClick={handleaddClick}>
