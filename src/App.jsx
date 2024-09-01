@@ -9,9 +9,8 @@ function App() {
 
   const handleAdd = (task, date) => {
 
-    let tempObj = {name: task, dueDate: date}
-    let temp = [...items, tempObj];
-    setItems(temp);
+    // let temp = [...items, {name: task, dueDate: date}];
+    setItems((prev) => [...prev, {name: task, dueDate: date}]);
   }
 
   const handleDelete = (todoItem) => {
